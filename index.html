@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Personal Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Poppins",sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#070b1a;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    nav{
+      position:fixed;
+      width:100%;
+      top:0;
+      left:0;
+      padding:22px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:1000;
+      transition:0.4s;
+      background:transparent;
+    }
+
+    nav.scrolled{
+      background:rgba(7,11,26,0.95);
+      backdrop-filter:blur(15px);
+      box-shadow:0 5px 20px rgba(0,0,0,0.4);
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:700;
+      background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .nav-links{
+      display:flex;
+      list-style:none;
+      gap:35px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:white;
+      font-size:16px;
+      position:relative;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover{
+      color:#38bdf8;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-5px;
+      width:0%;
+      height:2px;
+      background:#38bdf8;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover::after{
+      width:100%;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:140px 8% 80px;
+      position:relative;
+    }
+
+    .hero-left{
+      width:50%;
+      z-index:2;
+    }
+
+    .hero-left h3{
+      color:#38bdf8;
+      font-size:22px;
+      margin-bottom:15px;
+    }
+
+    .hero-left h1{
+      font-size:75px;
+      line-height:1.1;
+      margin-bottom:25px;
+    }
+
+    .hero-left h1 span{
+      background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero-left p{
+      color:#cbd5e1;
+      font-size:18px;
+      line-height:1.9;
+      max-width:600px;
+      margin-bottom:35px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:20px;
+    }
+
+    .btn{
+      padding:15px 32px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .primary{
+      background:linear-gradient(135deg,#38bdf8,#6366f1);
+      color:white;
+    }
+
+    .secondary{
+      border:2px solid rgba(255,255,255,0.15);
+      color:white;
+    }
+
+    .btn:hover{
+      transform:translateY(-5px);
+    }
+
+    .hero-right{
+      width:40%;
+      display:flex;
+      justify-content:center;
+      position:relative;
+    }
+
+    .profile-card{
+      width:360px;
+      height:420px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(20px);
+      border-radius:35px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .profile-top{
+      height:140px;
+      background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+    }
+
+    .profile-img{
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      border:6px solid #070b1a;
+      background:url("photo.jpeg") top center/cover;
+      position:absolute;
+      top:70px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+
+    .profile-content{
+      padding:120px 30px 30px;
+      text-align:center;
+    }
+
+    .profile-content h2{
+      font-size:30px;
+      margin-bottom:10px;
+    }
+
+    .profile-content span{
+      color:#38bdf8;
+      font-size:16px;
+    }
+
+    .profile-content p{
+      margin-top:20px;
+      color:#cbd5e1;
+      line-height:1.8;
+      font-size:15px;
+    }
+
+    .glow1,
+    .glow2{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(90px);
+      opacity:0.4;
+      animation:float 6s infinite ease-in-out;
+    }
+
+    .glow1{
+      width:250px;
+      height:250px;
+      background:#38bdf8;
+      top:-50px;
+      left:-80px;
+    }
+
+    .glow2{
+      width:300px;
+      height:300px;
+      background:#8b5cf6;
+      bottom:-80px;
+      right:-100px;
+      animation-delay:2s;
+    }
+
+    @keyframes float{
+
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-20px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
+    }
+
+    .about{
+      padding:120px 8%;
+      background:#ffffff;
+      color:#111827;
+      border-top-left-radius:80px;
+      border-top-right-radius:80px;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .section-title h2{
+      font-size:52px;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#6b7280;
+      font-size:18px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .about-card{
+      background:#f8fafc;
+      padding:40px 30px;
+      border-radius:28px;
+      transition:0.4s;
+      border:1px solid #e5e7eb;
+    }
+
+    .about-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .icon{
+      width:70px;
+      height:70px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#38bdf8,#6366f1);
+      margin-bottom:25px;
+    }
+
+    .about-card h3{
+      font-size:24px;
+      margin-bottom:15px;
+    }
+
+    .about-card p{
+      color:#6b7280;
+      line-height:1.8;
+    }
+
+    @media(max-width:1000px){
+
+      .hero{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .hero-left,
+      .hero-right{
+        width:100%;
+      }
+
+      .hero-left h1{
+        font-size:55px;
+      }
+
+      .buttons{
+        justify-content:center;
+      }
+
+      .hero-right{
+        margin-top:70px;
+      }
+    }
+
+    @media(max-width:700px){
+
+      nav{
+        padding:18px 5%;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .hero-left h1{
+        font-size:42px;
+      }
+
+      .hero-left p{
+        font-size:16px;
+      }
+
+      .profile-card{
+        width:320px;
+      }
+
+      .section-title h2{
+        font-size:38px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+
+    <div class="logo">
+      Portfolio
+    </div>
+
+    <ul class="nav-links">
+
+      <li><a href="#">Home</a></li>
+
+      <li><a href="#about">About</a></li>
+
+      <li><a href="#">Projects</a></li>
+
+      <li><a href="#">Skills</a></li>
+
+      <li><a href="#">Contact</a></li>
+
+    </ul>
+
+  </nav>
+
+  <div class="glow1"></div>
+
+  <div class="glow2"></div>
+
+  <section class="hero">
+
+    <div class="hero-left">
+
+      <h3>Hello, I'm</h3>
+
+      <h1>
+        Creative Web <br>
+        <span>Developer</span>
+      </h1>
+
+      <p>
+        I create beautiful, responsive, and interactive
+        websites with modern UI designs and smooth user
+        experiences that help brands stand out online.
+      </p>
+
+      <div class="buttons">
+
+        <a href="#" class="btn primary">
+          View Projects
+        </a>
+
+        <a href="#" class="btn secondary">
+          Contact Me
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="hero-right">
+
+      <div class="profile-card">
+
+        <div class="profile-top"></div>
+
+        <div class="profile-img"></div>
+
+        <div class="profile-content">
+
+          <h2>Bharath K</h2>
+
+          <span>Frontend Developer</span>
+
+          <p>
+            Passionate about creating modern and engaging
+            web experiences with clean code and creative UI.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="about" id="about">
+
+    <div class="section-title">
+
+      <h2>What I Do</h2>
+
+      <p>
+        Building creative digital experiences with modern
+        technologies and responsive designs.
+      </p>
+
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-card">
+
+        <div class="icon"></div>
+
+        <h3>Web Design</h3>
+
+        <p>
+          Creating visually appealing and user-friendly
+          website layouts with modern design principles.
+        </p>
+
+      </div>
+
+      <div class="about-card">
+
+        <div class="icon"></div>
+
+        <h3>Frontend Development</h3>
+
+        <p>
+          Developing responsive interfaces using HTML,
+          CSS, JavaScript, and modern frameworks.
+        </p>
+
+      </div>
+
+      <div class="about-card">
+
+        <div class="icon"></div>
+
+        <h3>UI Animation</h3>
+
+        <p>
+          Adding smooth animations and interactions
+          to enhance user experience and engagement.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+
+    const navbar =
+    document.getElementById("navbar");
+
+    window.addEventListener("scroll",()=>{
+
+      if(window.scrollY > 50){
+
+        navbar.classList.add("scrolled");
+
+      }
+
+      else{
+
+        navbar.classList.remove("scrolled");
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
+```
